@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Placement Prediction</title>
+    <link rel="website icon" type="avif" href="/templates/image/logo.avif" />
+
+    <style>
+        body {
+
+          background-color: #4de0c2;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+
+        }
+        form {
+          background-color: #ffffff;
+          border-radius: 15px;
+          padding: 30px 40px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+          width: 350px;
+          border: 3px solid #00bfff;
+        }
+        label {
+          font-weight: 600;
+          display: block;
+          margin: 15px 0 5px;
+          color: #333;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 3px;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+            font-size: 14px;
+        }
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #00bfff;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border: 4px solid #347aeb;
+            border-radius: 4%;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5em;
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 20px;
+        }
+       @media (max-width: 768px) {
+          form {
+              width: 90%;
+              padding: 25px 20px;
+          }
+
+          h2 {
+              font-size: 20px;
+          }
+
+          label {
+              font-size: 13px;
+          }
+
+          input[type="text"],
+          select {
+              font-size: 13px;
+              padding: 9px;
+          }
+
+          button[type="submit"] {
+              font-size: 15px;
+              padding: 10px;
+          }
+      }
+
+
+      @media (max-width: 480px) {
+          h2 {
+              font-size: 18px;
+          }
+
+          label {
+              font-size: 12px;
+          }
+
+          input[type="text"],
+          select {
+              padding: 8px;
+              font-size: 12px;
+          }
+
+          button[type="submit"] {
+              font-size: 14px;
+              padding: 9px;
+          }
+      }
+
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+          form {
+              width: 70%;
+          }
+      }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 style="text-align:center;
+                 font-size:xx-large;
+                 color: #333333;
+                 margin-bottom: 20px;
+        ">Customer Purchase Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="Time_on_Site">Time_on_Site:</label>
+            <input type="number" step="0.01"name="Time_on_Site" placeholder="Enter Numerical or Integer value" required>
+            
+            <label for="Pages_viewed">Pages_viewed:</label>
+            <input type="number" step="0.01" name="Pages_viewed" placeholder="Enter Numerical or Integer value" required>
+            
+            <label for="Clicked_ad">Clicked_ad:</label>
+            <input type="number" name="Clicked_ad" placeholder="Enter Only 0 or 1" required>
+            
+            <label for="Cart_value">Cart_value:</label>
+            <input type="number" step="0.01" name="Cart_value" placeholder="Enter Numerical or Integer value" required>
+
+            <label for="Browser_Refresh_Rate">Browser_Refresh_Rate:</label>
+            <input type="number" step="0.01" name="Browser_Refresh_Rate" placeholder="Enter Numerical or Integer value" required>
+            
+            <label for="Referral_Direct">Referral_Direct:</label>
+           <select name="Referral_Direct" id="Referral_Direct" required>
+              <option value="">--Select--</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          <br>
+            <label for="Referral_Facebook">Referral_Facebook:</label>
+            <select name="Referral_Facebook" id="Referral_Facebook" required>
+              <option value="">--Select--</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          <br>
+
+            <label for="Referral_Google">Referral_Google:</label>
+            <select name="Referral_Google" id="Referral_Google" required>
+              <option value="">--Select--</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          <br>  
+            <label for="Referral_Instagram">Referral_Instagram:</label>
+             <select name="Referral_Instagram" id="Referral_Instagram" required>
+              <option value="">--Select--</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+            <input type="submit" value="Predict">
+        </form>
+        {% if prediction_text %}
+        <div class="result" style="font-size:50px;
+                                   font-weight:bold;
+                                   color:#eb34ab;">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
